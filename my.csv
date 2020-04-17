@@ -1,0 +1,3 @@
+Username,Passwort,Einkommen,Fixkosten,Ausgaben,Fleisch,ObstUndGemüse,Milchprodukte,Auto,Sonderausgaben
+q,q,12,2,2,1,1,1,1,1
+<kivy.uix.textinput.TextInput object at 0x7f24642ae830>,<kivy.uix.textinput.TextInput object at 0x7f24642be830>,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
