@@ -1,0 +1,551 @@
+WindowManager:
+    Login:
+    Homescreen:
+
+<Login>:
+    name: "main"
+
+    passwort:passwort
+    username:username
+    login_fehler: login_fehler
+    login: login
+
+    canvas:
+        Color:
+            rgba: [1,1,1,1]
+        Rectangle:
+            size: self.width, self.height
+        Color:
+            rgba: [0.157, 0.455, 0.753, 1]
+        Line:
+            width: 5
+            rectangle: (self.x, self.y, self.width, self.height)
+        Line:
+            width: 2
+            rectangle: self.width / 4 + 10, self.height / 4, self.width / 2, self.height / 2
+
+    GridLayout:
+        cols: 1
+        size_hint: 0.4, 0.25
+        pos: root.width / 3.25, root.height / 2.4
+        spacing: 10
+        TextInput:
+            write_tab: False
+            id: username
+            hint_text: "Username"
+            multiline: False
+            size_hint_x: 3
+            font_size: 20
+
+        TextInput:
+            id: passwort
+            hint_text: "Passwort"
+            password: True
+            multiline: False
+            size_hint_x: 3
+            font_size: 20
+            write_tab: False
+        Label:
+            id: login_fehler
+            text: "Username und Passwort stimmen nicht überein!"
+            color: (1,1,1,1)
+            font_size: 15
+            pos_hint: 0.1, 0.2
+
+    GridLayout:
+        cols: 2
+        pos: root.width / 3.5, root.height / 2.9
+        size_hint: 0.45, 0.075
+        spacing: 10 
+
+        SmoothButton:
+            text: "Regestrierung"
+            font_size: 20
+            on_press: root.fire_popup()
+        StrokeButton:
+            id: login
+            text: "Login"
+            font_size: 20
+            on_press: root.login_daten()
+
+
+<Regestrierung_Popup>:
+
+    username_1:username_1
+    passwort_1:passwort_1
+    passwort_2:passwort_2
+    falsches_psw:falsches_psw
+    username_vorhanden:username_vorhanden
+
+    auto_dismiss: False
+    title: "Regestrierung"
+    size_hint: None,None
+    size: 450, 450
+    FloatLayout:
+        size: 400, 400
+        canvas.before:
+            Color:
+                rgba: 1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        TextInput:
+            hint_text: "Username"
+            font_size: 20
+            multiline: False
+            size_hint: 0.8, 0.125
+            pos_hint: {"x": 0.1, "y":0.75}
+            write_tab: False
+            id: username_1
+        TextInput:
+            hint_text: "Passwort"
+            font_size: 20
+            multiline: False
+            size_hint: 0.8, 0.125
+            pos_hint: {"x": 0.1, "y":0.6}
+            password: True
+            write_tab: False
+            id:passwort_1
+        TextInput:
+            hint_text: "Passwort wiederholen"
+            font_size: 20
+            multiline: False
+            size_hint: 0.8, 0.125
+            pos_hint: {"x": 0.1, "y":0.45}
+            password: True
+            write_tab: False
+            id: passwort_2
+        StrokeButton:
+            text: "Anmelden"
+            size_hint: 0.8, 0.2
+            pos_hint: {"x": 0.1, "y":0.1}
+            on_press: root.anmelden()
+        SmoothButton:
+            text: "X"
+            size_hint: 0.05, 0.05
+            pos_hint: {"x": 0.94, "y": 1.03}
+            back_color: (1,.33,.2,1)
+            color: (0,0,0,1)
+            on_press: root.dismiss()
+        Label_passwort:
+            id: falsches_psw
+        Label_passwort:
+            id: username_vorhanden
+            pos_hint: {"x": 0.01, "y": 0.43}
+            text: "Dieser Username ist leider schon vergeben!"
+
+<Homescreen>:
+    name: "second"
+
+    datum_input:datum_input
+    achtung: achtung
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    StrokeButton:
+        size_hint: 0.08, 0.045
+        pos_hint: {"top":0.995, "right":0.995}
+        text: "Logout"
+        border_radius: 15
+        on_press: root.changer_login()
+    GridLayout:
+        cols: 1
+        pos: root.width / 3.5, root.height / 2.9
+        size_hint: 0.425, 0.45
+        spacing: 15
+
+        StrokeButton:
+            text: "Lebensmittel"
+            font_size: 20
+            on_press: root.Lebensmittel()
+
+        StrokeButton:
+            text: "Kosmetik / Haushalt"
+            font_size: 20
+            on_press: root.alle(self.text)
+
+        StrokeButton:
+            text: "Sonderausgaben"
+            font_size: 20
+            on_press: root.alle(self.text)
+
+        StrokeButton:
+            text: "Auto"
+            font_size: 20
+            on_press: root.alle(self.text)
+
+        StrokeButton:
+            text: "weggeworfen"
+            font_size: 20
+            on_press: root.alle(self.text)
+    GridLayout:
+        cols: 1
+        size_hint: 0.5, 0.1
+        pos: root.width / 4, root.height / 8
+
+        SmoothButton:
+            text: "Gesamtausgaben"
+            font_size: 20
+            on_press: root.show_ausgaben()
+    FloatLayout:
+        TextInput:
+            id: datum_input
+            size_hint: 0.23, 0.075
+            hint_text: "TT/MM/JJJJ"
+            pos_hint: {"x": 0.37, "y": .87}
+            font_size: 25
+        SmoothButton:
+            size_hint: 0.07, 0.075
+            pos_hint: {"x": 0.62, "y": .87}
+            text: "Ok!"
+            font_size: 18
+            on_press: root.datum_homepage()
+        Label:
+            id: achtung
+            size_hint: 0.23, 0.075
+            text: "TT/MM/JJJJ"
+            color: 1,0,1,0
+            pos_hint: {"x": 0.37, "y": .8}
+            font_size: 16
+
+<Anzeige_Ausgaben>:
+
+    tag_von: tag_von
+    monat_von: monat_von
+    jahr_von:jahr_von
+    tag_bis: tag_bis
+    monat_bis: monat_bis
+    jahr_bis:jahr_bis
+    text_ausgaben: text_ausgaben
+    text_Ausgaben: text_Ausgaben
+    text_Ausgaben2: text_Ausgaben2
+    datum_falsch: datum_falsch
+
+    title: "Ausgaben"
+    size_hint: None,None
+    size: 400, 500
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        SmoothButton:
+            text: "X"
+            size_hint: 0.05, 0.0475
+            pos_hint: {"x": 0.94, "y": 1.03}
+            back_color: (1,.33,.2,1)
+            color: (0,0,0,1)
+            on_press: root.dismiss()
+
+        Label:
+            text: "von :        /         /     "
+            font_size: 25
+            color: 0,0,0,1
+            pos_hint: {"x": -0.03, "y": 0.42}
+        TextInput:
+            id: tag_von
+            hint_text: "TT"
+            font_size: 18
+            size_hint: 0.1, 0.08
+            pos_hint: {"x": 0.358, "y": .88}
+        TextInput:
+            id: monat_von
+            hint_text: "MM"
+            font_size: 18
+            size_hint: 0.1, 0.08
+            pos_hint: {"x": 0.523, "y": .88}
+        TextInput:
+            id: jahr_von
+            hint_text: "JJJJ"
+            font_size: 18
+            size_hint: 0.15, 0.08
+            pos_hint: {"x": 0.67, "y": .88}
+
+        Label:
+            text: "bis :        /         /    "
+            font_size: 25
+            color: 0,0,0,1
+            pos_hint: {"x": -0.03, "y": 0.32}
+        TextInput:
+            id: tag_bis
+            hint_text: "TT"
+            font_size: 18
+            size_hint: 0.1, 0.08
+            pos_hint: {"x": 0.358, "y": .78}
+        TextInput:
+            id: monat_bis
+            hint_text: "MM"
+            font_size: 18
+            size_hint: 0.1, 0.08
+            pos_hint: {"x": 0.523, "y": .78}
+        TextInput:
+            id: jahr_bis
+            hint_text: "JJJJ"
+            font_size: 18
+            size_hint: 0.15, 0.08
+            pos_hint: {"x": 0.67, "y": .78}
+
+        StrokeButton:
+            text: "Ok!"
+            size_hint: 0.2, 0.075
+            font_size: 20
+            pos_hint: {"x": 0.425, "y": .68}
+            on_press: root.show_it()
+
+        Label:
+            id: datum_falsch
+            text: "Datum bitte richtig eingeben!"
+            pos_hint: {"x": 0.02, "y": 0}
+            color: 1,1,1,1
+            font_size: 20
+
+        Label:
+            id: text_ausgaben
+            text: ""
+            pos_hint: {"x": 0.02, "y": 0.12}
+            color: 1,1,1,1
+            font_size: 22
+        Label:
+            id: text_Ausgaben
+            text: ""
+            pos_hint: {"x": -0.2, "y": -0.2}
+            color: 1,1,1,1
+            font_size: 18
+        Label:
+            id: text_Ausgaben2
+            text: ""
+            pos_hint: {"x": 0.27, "y": -0.2}
+            color: 1,1,1,1
+            font_size: 18
+
+<Ausgaben_Popup>:
+
+    hinzufuegen: hinzufuegen
+    menge_falsch: menge_falsch
+    menge_hinzugefuegt: menge_hinzugefuegt
+    text:text
+
+    title: "Extra"
+    size_hint: None,None
+    size: 400, 400
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        SmoothButton:
+            text: "X"
+            size_hint: 0.05, 0.05
+            pos_hint: {"x": 0.94, "y": 1.03}
+            back_color: (1,.33,.2,1)
+            color: (0,0,0,1)
+            on_press: root.dismiss()
+        StrokeLabel:
+            id: text
+            font_size: 20
+            pos_hint: {"x": 0.15, "y": 0.7}
+            size_hint: 0.7, 0.2
+        TextInput:
+            id: hinzufuegen
+            font_size: 20
+            multiline: False
+            hint_text: "Geldbetrag"
+            pos_hint: {"x": 0.32, "y": 0.34}
+            size_hint: 0.35, 0.125
+        Label:
+            color: 0,0,0,1
+            text: "      Euro"
+            font_size: 30
+            pos_hint: {"x": 0.22, "y": -0.1}
+        Label:
+            id: menge_hinzugefuegt
+            text: "asdasd"
+            color: .1,.6,0,0
+            font_size: 20
+            pos_hint: {"x": 0, "y": 0.05}
+
+        Label:
+            id: menge_falsch
+            color: 0,0,0,0
+            font_size: 15
+            text: 'keine Buchstaben und kein "," sondern "."'
+            pos_hint: {"x": 0, "y": -0.4}
+        SmoothButton:
+            text: "Hinzufuegen"
+            font_size: 15
+            pos_hint: {"x": 0.34, "y": 0.2}
+            size_hint: 0.3, 0.1
+            on_press: root.btn_hinzufuegen(text.text)
+
+<Lebensmittel_Definition>:
+
+    backwaren:backwaren
+    fleisch:fleisch
+    wurst:wurst
+    obstundGemuese:obstundGemuese
+    milchprodukte:milchprodukte
+    getraenke:getraenke
+    zucker:zucker
+    sonstiges:sonstiges
+
+    auto_dismiss: False
+    title: "Lebensmittel"
+    size_hint: None,None
+    size: 400, 500
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        SmoothButton:
+            text: "X"
+            size_hint: 0.05, 0.04
+            pos_hint: {"x": 0.94, "y": 1.03}
+            back_color: (1,.33,.2,1)
+            color: (0,0,0,1)
+            on_press: root.dismiss()
+        StrokeButton:
+            id: backwaren
+            text: "Backwaren"
+            font_size: 20
+            pos_hint: {"x": 0.2, "y": 0.86}
+            size_hint: 0.6, 0.1
+            on_press: root.alle(self.text)
+        StrokeButton:
+            id: fleisch
+            text: "Fleisch"
+            font_size: 20
+            pos_hint: {"x": 0.2, "y": 0.72}
+            size_hint: 0.28, 0.1
+            on_press: root.alle(self.text)
+        StrokeButton:
+            id: wurst
+            text: "Wurst"
+            font_size: 20
+            pos_hint: {"x": 0.52, "y": 0.72}
+            size_hint: 0.28, 0.1
+            on_press: root.alle(self.text)
+        StrokeButton:
+            id: obstundGemuese
+            text: "Obst und Gem."
+            font_size: 20
+            pos_hint: {"x": 0.2, "y": 0.58}
+            size_hint: 0.6, 0.11
+            on_press: root.alle(self.text)
+        StrokeButton:
+            id: milchprodukte
+            text: "Milchprodukte"
+            font_size: 20
+            pos_hint: {"x": 0.2, "y": 0.44}
+            size_hint: 0.6, 0.1
+            on_press: root.alle(self.text)
+        StrokeButton:
+            id: getraenke
+            text: "Drinks"
+            font_size: 20
+            pos_hint: {"x": 0.2, "y": 0.31}
+            size_hint: 0.6, 0.1
+            on_press: root.alle(self.text)
+        StrokeButton:
+            id: zucker
+            text: "Snacks"
+            font_size: 20
+            pos_hint: {"x": 0.2, "y": 0.18}
+            size_hint: 0.6, 0.1
+            on_press: root.alle(self.text)
+        StrokeButton:
+            id: sonstiges
+            text: "Sonstiges"
+            font_size: 20
+            pos_hint: {"x": 0.2, "y": 0.045}
+            size_hint: 0.6, 0.1
+            on_press: root.alle(self.text)
+
+
+<Label_passwort@Label>:
+    pos_hint: {"x": 0.025, "y": -0.1}
+    text: "Passwörter stimmen nicht überein!"
+    font_size: 15
+    color: (1,1,1,1)
+
+<StrokeLabel@Label>:
+    background_color: 0,0,0,0
+    background_normal: ""
+    back_color: (0.157, 0.455, 0.753, 1)
+    border_radius: 18
+    color: self.back_color
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        Line:
+            rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], self.border_radius)
+            width: 1.2
+
+<SmoothLabel@Label>:
+    background_color: 0,0,0,0
+    background_normal: ""
+    back_color: (0.157, 0.455, 0.753, 1)
+    border_radius: [18]
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: self.border_radius
+
+<SmoothButton@Button>:
+    background_color: 0,0,0,0
+    background_normal: ""
+    back_color: (0.157, 0.455, 0.753, 1)
+    border_radius: [18]
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: self.border_radius
+
+<StrokeButton@Button>:
+    background_color: 0,0,0,0
+    background_normal: ""
+    back_color: (0.157, 0.455, 0.753, 1)
+    border_radius: 18
+    color: self.back_color
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        Line:
+            rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], self.border_radius)
+            width: 1.2
+<StrokeButton1@Button>:
+    background_color: 0,0,0,0
+    background_normal: ""
+    back_color: (0.157, 0.455, 0.753, 1)
+    border_radius: 18
+    color: self.back_color
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        Line:
+            rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], self.border_radius)
+            width: 1.2
